@@ -5,23 +5,23 @@ module AutoPreload
     extend ActiveSupport::Concern
 
     included do
-      scope :auto_includes, lambda { |inclusions|
+      scope :auto_includes, lambda { |inclusions, options = {}|
         if inclusions.present?
-          includes(*Resolver.new.resolve(self, inclusions))
+          includes(*Resolver.new(options).resolve(self, inclusions))
         else
           self
         end
       }
-      scope :auto_preload, lambda { |inclusions|
+      scope :auto_preload, lambda { |inclusions, options = {}|
         if inclusions.present?
-          preload(*Resolver.new.resolve(self, inclusions))
+          preload(*Resolver.new(options).resolve(self, inclusions))
         else
           self
         end
       }
-      scope :auto_eager_load, lambda { |inclusions|
+      scope :auto_eager_load, lambda { |inclusions, options = {}|
         if inclusions.present?
-          eager_load(*Resolver.new.resolve(self, inclusions))
+          eager_load(*Resolver.new(options).resolve(self, inclusions))
         else
           self
         end

@@ -44,4 +44,10 @@ RSpec.describe AutoPreload::Resolver do
     Comment.auto_preloadable = []
     expect(subject.resolve(User, "**")).to eq([:comments, { articles: %i[comments] }])
   end
+
+  # Cleanup
+  after do
+    Article.auto_preloadable = nil
+    Comment.auto_preloadable = nil
+  end
 end
