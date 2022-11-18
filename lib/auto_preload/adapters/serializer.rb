@@ -12,8 +12,8 @@ module AutoPreload
 
       # @param model [ActiveRecord::Base] The model to find preloadable associations for.
       # @return [Array<ActiveRecord::Reflection>] The preloadable associations.
-      def resolve_preloadables(model, options = {}, root: false)
-        serializer = resolve_serializer(model, options, root: root)
+      def resolve_preloadables(model, options = {})
+        serializer = resolve_serializer(model, options)
         preloadables = @fallback.resolve_preloadables(model)
         return preloadables unless serializer
 
@@ -24,8 +24,8 @@ module AutoPreload
         end.compact
       end
 
-      def resolve_serializer(model, options = {}, root: false)
-        if root
+      def resolve_serializer(model, options = {})
+        if options[:root]
           options[:serializer] || ActiveModel::Serializer.serializer_for(model)
         else
           ActiveModel::Serializer.serializer_for(model)

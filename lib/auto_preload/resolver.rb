@@ -97,7 +97,7 @@ module AutoPreload
     # @param model [ActiveRecord::Base]
     # @return [Array<ActiveRecord::Reflection::AssociationReflection>]
     def resolve_preloadables(model, root: false)
-      @adapter.resolve_preloadables(model, @options, root: root)
+      @adapter.resolve_preloadables(model, @options.merge(root: root))
     end
 
     # @param model [ActiveRecord::Base]
@@ -110,7 +110,7 @@ module AutoPreload
     # @raise [RuntimeError]
     def increase_iterations_count!
       @iterations += 1
-      raise "Too many iterations reached" if @iterations > @max_iterations
+      raise "Iterations limit reached (#{@iterations} of #{@max_iterations})" if @iterations > @max_iterations
     end
   end
 end

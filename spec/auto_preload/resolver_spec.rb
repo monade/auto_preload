@@ -36,7 +36,7 @@ RSpec.describe AutoPreload::Resolver do
   end
 
   it "fails to resolve looping ** association" do
-    expect { subject.resolve(User, "**") }.to raise_error("Too many iterations reached")
+    expect { subject.resolve(User, "**") }.to raise_error(/Iterations limit reached \(\d* of 100\)/)
   end
 
   it "resolves the ** association" do
