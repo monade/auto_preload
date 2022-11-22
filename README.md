@@ -19,7 +19,7 @@ and run the `bundle install` command.
 JSON::API allows API consumers to pass a query parameter, called `include`, to manually select which model associations should be resolved and returned in the output JSON.
 
 This means that in your controller, you may have a dilemma:
-* If the consumer requests an association that is not preloaded, Rails will run (N+1 queries)[https://guides.rubyonrails.org/active_record_querying.html#eager-loading-associations], slowing down the response
+* If the consumer requests an association that is not preloaded, Rails will run [N+1 queries](https://guides.rubyonrails.org/active_record_querying.html#eager-loading-associations), slowing down the response
 * You can't know, beforehand, which association may be requested by the consumer, since it's parametric
 * You can just preload every possible association, but you'll end up making a lot of extra (redundant) queries in most cases.
 
@@ -28,7 +28,7 @@ This gem tries to fix this by parsing the `include` parameter and transforming i
 ## Usage
 This gem adds to ActiveRecord classes a couple of utility methods that will help to preload associations.
 
-To start using it, simply pass a (JSON::API include string)[https://jsonapi.org/format/#fetching-includes] to the `auto_preload` class method of a model, and it will resolve it.
+To start using it, simply pass a [JSON::API include string](https://jsonapi.org/format/#fetching-includes) to the `auto_preload` class method of a model, and it will resolve it.
 
 Here's an example:
 ```ruby
@@ -87,7 +87,7 @@ User.auto_preload('**') # Equivalent to preload(:comments, articles: :comments)
 ```
 
 ### Adapters
-By default, the resolution of the expressions passed to `auto_preload` methods is resolved by the (ActiveRecord Adapter)[https://github.com/monade/auto_preload/blob/master/lib/auto_preload/adapters/active_record.rb].
+By default, the resolution of the expressions passed to `auto_preload` methods is resolved by the [ActiveRecord Adapter](https://github.com/monade/auto_preload/blob/master/lib/auto_preload/adapters/active_record.rb).
 
 An Adapter is simply a class that, given a model, returns the list of the associations that can be preloaded.
 
