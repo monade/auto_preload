@@ -22,4 +22,9 @@ RSpec.describe "Models" do
     expect(base_query).not_to receive(:eager_load)
     base_query.auto_preload("").to_a
   end
+
+  it "#auto_preload with invalid value" do
+    expect(base_query).not_to receive(:preload)
+    base_query.auto_preload("something").to_a
+  end
 end

@@ -7,21 +7,24 @@ module AutoPreload
     included do
       scope :auto_includes, lambda { |inclusions, options = {}|
         if inclusions.present?
-          includes(*Resolver.new(options).resolve(self, inclusions))
+          resolved = Resolver.new(options).resolve(self, inclusions)
+          resolved.empty? ? self : includes(*resolved)
         else
           self
         end
       }
       scope :auto_preload, lambda { |inclusions, options = {}|
         if inclusions.present?
-          preload(*Resolver.new(options).resolve(self, inclusions))
+          resolved = Resolver.new(options).resolve(self, inclusions)
+          resolved.empty? ? self : preload(*resolved)
         else
           self
         end
       }
       scope :auto_eager_load, lambda { |inclusions, options = {}|
         if inclusions.present?
-          eager_load(*Resolver.new(options).resolve(self, inclusions))
+          resolved = Resolver.new(options).resolve(self, inclusions)
+          resolved.empty? ? self : eager_load(*resolved)
         else
           self
         end
