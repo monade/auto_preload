@@ -12,6 +12,8 @@ gem "rspec", "~> 3.0"
 
 gem "rubocop", "~> 1.7"
 
+gem "solargraph"
+
 gem "active_model_serializers", "~> 0.10"
 gem "simplecov"
 gem "yard"

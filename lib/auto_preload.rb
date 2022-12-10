@@ -3,6 +3,8 @@
 require "active_support"
 require "active_record"
 
+# Provides methods to run `preload`/`includes`/`eager_load` on your model
+# from a JSON::API include string.
 module AutoPreload
   extend ActiveSupport::Autoload
 
@@ -11,13 +13,18 @@ module AutoPreload
   autoload :Resolver
   autoload :Config
 
+  # @yield [AutoPreload::Config]
+  # @return [AutoPreload::Config]
   def self.configure
     yield(config)
   end
 
+  # @return [AutoPreload::Config]
   def self.config
     @config ||= Config.new
   end
 end
 
-ActiveRecord::Base.include AutoPreload::ActiveRecord
+# rubocop:disable Lint/SendWithMixinArgument
+ActiveRecord::Base.send(:include, AutoPreload::ActiveRecord)
+# rubocop:enable Lint/SendWithMixinArgument

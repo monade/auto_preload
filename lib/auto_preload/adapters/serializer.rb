@@ -24,6 +24,11 @@ module AutoPreload
         end.compact
       end
 
+      # @param model [ActiveRecord::Base]
+      # @param options [Hash]
+      # @option options [Boolean] :root
+      # @option options [ActiveModel::Serializer] :serializer
+      # @return [ActiveModel::Serializer]
       def resolve_serializer(model, options = {})
         if options[:root]
           options[:serializer] || ActiveModel::Serializer.serializer_for(model)

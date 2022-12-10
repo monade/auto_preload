@@ -3,8 +3,13 @@
 module AutoPreload
   # This class parses a string in the format "articles,comments" and returns an array of symbols.
   class Resolver
+    # Default max number of iterations
+    # @return [Integer]
     MAX_ITERATIONS = 100
 
+    # @param options [Hash]
+    # @option options [Integer] :max_iterations
+    # @option options [AutoPreload::Adapters::ActiveRecord, AutoPreload::Adapters::Serializer] :adapter
     def initialize(options = {})
       @iterations = 0
       @options = options
@@ -43,7 +48,7 @@ module AutoPreload
       objects.present? ? (symbols << objects) : symbols
     end
 
-    # @param list [Array<Hash>]
+    # @param objects [Array<Hash>]
     # @return [Hash]
     def merge(objects)
       objects.reduce({}) do |result, object|
