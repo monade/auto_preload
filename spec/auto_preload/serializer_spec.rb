@@ -18,6 +18,10 @@ RSpec.describe AutoPreload::Resolver do
       expect(subject.resolve(Comment, "user,article")).to eq [:user]
     end
 
+    it "skips not defined associations in the serializer when it's nested" do
+      expect(subject.resolve(Comment, "user.something.something.something,article")).to eq([{ user: [] }])
+    end
+
     it "prevents loops" do
       expect(subject.resolve(Comment, "**")).to eq [:user]
     end

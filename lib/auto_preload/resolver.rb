@@ -95,8 +95,12 @@ module AutoPreload
 
       head, *tail = inclusions.split(".", 2)
       head = head.strip.underscore.to_sym
-      child_model = find_association(model, head, root: root).klass
-      [{ head => resolve(child_model, tail[0]) }]
+      child_model = find_association(model, head, root: root)&.klass
+      if child_model.nil?
+        []
+      else
+        [{ head =>  resolve(child_model, tail[0]) }]
+      end
     end
 
     # @param model [ActiveRecord::Base]
